@@ -1,0 +1,9 @@
+# Carpeta de dependencias de Node.js (npm / yarn)
+/node_modules
+
+# Archivo de configuración local de npm (npmrc)
+.npmrc
+
+# Carpeta de construcción / compilación
+/build
+/dist

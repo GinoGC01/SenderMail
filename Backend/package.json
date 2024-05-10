@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "That's a server for node from \"SenderMail\" app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon ./Server/index.js"
+  },
+  "keywords": [
+    "server",
+    "node",
+    "js",
+    "email"
+  ],
+  "author": "Gino Ciancia",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "standard": "^17.1.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "16.4.5",
+    "express": "4.19.2",
+    "mysql2": "^3.9.7",
+    "uuid": "^9.0.1"
+  }
+}

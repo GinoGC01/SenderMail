@@ -1,0 +1,2 @@
+### Get all customers
+GET http://localhost:1234
