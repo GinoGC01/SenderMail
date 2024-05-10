@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import DeleteStudios from "./DeleteStudios";
 
 export default function LoadedStudios() {
   const [studios, setStudios] = useState([]);
@@ -25,11 +26,17 @@ export default function LoadedStudios() {
   useEffect(() => {
     fetchStudios();
   }, []);
+
   return (
     <ul>
       {studios.length >= 0 &&
         studios.map(({ nombre, id }) => {
-          return <li key={id}>{nombre}</li>;
+          return (
+            <li key={id}>
+              <h3>{nombre}</h3>
+              <DeleteStudios id={id} />
+            </li>
+          );
         })}
     </ul>
   );

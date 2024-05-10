@@ -4,6 +4,7 @@ import { CORS } from './Services/cors.js' //midelware CORS
 import mysql from 'mysql2'
 import { v4 as uuidv4 } from 'uuid'
 import bodyParser from 'body-parser'
+import { queryAsync } from './Services/queryAsync.js'
 
 dotenv.config()
 const app = express()
@@ -78,6 +79,28 @@ app.post('/', async (req, res) => {
     res
       .status(500)
       .json({ error: 'Error al insertar datos a la base de datos' })
+  }
+})
+
+// Luego, puedes usar queryAsync como una función que devuelve una promesa
+app.delete('/borrar-studios/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    // Llevamos a cabo la petición
+    const query = `DELETE FROM estudios_juridicos WHERE id = ?`
+
+    // Realizar la consulta para borrar el dato con el ID proporcionado
+    const result = await queryAsync(connection, query, [id])
+
+    // Verificar si se borró el dato correctamente
+    if (result.affectedRows === 1) {
+      res.status(200).send('Dato borrado correctamente')
+    } else {
+      res.status(404).send('No se encontró el dato con la id proporcionada')
+    }
+  } catch (error) {
+    console.error('Error al intentar borrar el dato: BACKEND', error)
+    res.status(500).send('Error interno del servidor')
   }
 })
 
