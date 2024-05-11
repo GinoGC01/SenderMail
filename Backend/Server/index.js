@@ -23,7 +23,8 @@ app.use(CORS)
 app.use(bodyParser.json()) //analizar formato JSON
 app.use(bodyParser.urlencoded({ extended: false })) //analizar datos codificados en url '...?dato-dato'
 
-app.get('/', async (req, res) => {
+//todos los estudios
+app.get('/estudios-juridicos', async (req, res) => {
   try {
     const query = `Select * from estudios_juridicos`
     connection.query(query, (error, results) => {
@@ -42,16 +43,18 @@ app.get('/', async (req, res) => {
   }
 })
 
-app.post('/', async (req, res) => {
+//subir un estudio
+app.post('/estudios-juridicos', async (req, res) => {
   try {
     // Generar un UUID único
     const id = uuidv4()
+    const enviado = false
 
     // Extraer otros datos del cuerpo de la solicitud
     const { nombre, ubicacion, email, telefono } = req.body
 
     // Construir la consulta SQL de inserción
-    const query = `INSERT INTO estudios_juridicos (id, nombre, ubicacion, email, telefono) VALUES (?, ?, ?, ?, ?)`
+    const query = `INSERT INTO estudios_juridicos (id, nombre, ubicacion, email, telefono, enviado) VALUES (?, ?, ?, ?, ?, ?)`
 
     // Verificar que los campos requeridos no son nulos
     if (!nombre || !ubicacion || !email || !telefono) {
@@ -61,7 +64,7 @@ app.post('/', async (req, res) => {
     // Ejecutar la consulta SQL con los datos proporcionados
     connection.query(
       query,
-      [id, nombre, ubicacion, email, telefono],
+      [id, nombre, ubicacion, email, telefono, enviado],
       (error, results) => {
         if (error) {
           console.error('Error al insertar datos:', error)
@@ -83,7 +86,7 @@ app.post('/', async (req, res) => {
 })
 
 // Luego, puedes usar queryAsync como una función que devuelve una promesa
-app.delete('/borrar-studios/:id', async (req, res) => {
+app.delete('/estudios-juridicos/borrar-studios/:id', async (req, res) => {
   const { id } = req.params
   try {
     // Llevamos a cabo la petición
@@ -101,6 +104,29 @@ app.delete('/borrar-studios/:id', async (req, res) => {
   } catch (error) {
     console.error('Error al intentar borrar el dato: BACKEND', error)
     res.status(500).send('Error interno del servidor')
+  }
+})
+
+//actualizar el estado del envio de un estudio
+app.patch('/estudios-juridicos/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const { enviado } = req.body // Obtener el valor de enviado desde el cuerpo de la solicitud
+
+    // Ejecutar la consulta SQL para actualizar el valor de enviado a true
+    const query = 'UPDATE estudios_juridicos SET enviado = ? WHERE id = ?'
+
+    const result = await queryAsync(connection, query, [enviado, id])
+    // Verificar si se actualizó el dato correctamente
+    if (result.affectedRows === 1) {
+      res.status(200).send('Dato actualizado correctamente')
+    } else {
+      res.status(404).send('No se encontró el dato con la id proporcionada')
+    }
+  } catch (error) {
+    // En caso de error, enviar una respuesta de error al cliente
+    console.error('Error al actualizar enviado:', error)
+    res.status(500).send('Error al actualizar enviado')
   }
 })
 

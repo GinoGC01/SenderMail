@@ -4,7 +4,7 @@ function DeleteStudios({ id }) {
   async function deleteStudios() {
     try {
       const response = await fetch(
-        `http://localhost:1234/borrar-studios/${id}`,
+        `http://localhost:1234/estudios-juridicos/borrar-studios/${id}`,
         {
           method: "DELETE",
         }
@@ -22,7 +22,7 @@ function DeleteStudios({ id }) {
     }
   }
 
-  return <button onClick={deleteStudios}>DeleteStudio</button>;
+  return <button onClick={deleteStudios}>Borrar estudio</button>;
 }
 
 DeleteStudios.propTypes = {

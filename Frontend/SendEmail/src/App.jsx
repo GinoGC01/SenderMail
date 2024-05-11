@@ -1,11 +1,11 @@
 import "./App.css";
-import FormStudios from "./components/FormStudios";
-import LoadedStudios from "./components/LoadedStudios";
+import EstudiosJuridicos from "./components/EstudiosJuridicos.jsx";
+import FormStudios from "./components/FormStudios.jsx";
 
 function App() {
   return (
     <>
-      <LoadedStudios />
+      <EstudiosJuridicos />
       <FormStudios />
     </>
   );

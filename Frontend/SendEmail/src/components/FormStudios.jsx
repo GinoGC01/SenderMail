@@ -6,7 +6,7 @@ export default function FormStudios() {
     const fields = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("http://localhost:1234/", {
+      const response = await fetch("http://localhost:1234/estudios-juridicos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
