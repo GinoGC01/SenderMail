@@ -1,30 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 import EstudiosEnviados from "./EstudiosEnviados";
 import EstudiosPendientes from "./EstudiosPendientes";
-
-const URL_BACKEND = "http://localhost:1234"; // Cambiar a la URL del servidor backend
+import { StudiosContext } from "../context/StudiosContext";
 
 const EstudiosJuridicos = () => {
-  const [estudiosEnviados, setEstudiosEnviados] = useState([]);
-  const [estudiosNoEnviados, setEstudiosNoEnviados] = useState([]);
+  const { estudiosEnviados, estudiosNoEnviados, fetchEstudios, URL_BACKEND } =
+    useContext(StudiosContext);
 
   useEffect(() => {
     fetchEstudios();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const fetchEstudios = async () => {
-    try {
-      const response = await fetch(`${URL_BACKEND}/estudios-juridicos`);
-      if (!response.ok) {
-        throw new Error("Error al obtener los estudios juridicos");
-      }
-      const estudios = await response.json();
-      setEstudiosEnviados(estudios.filter((estudio) => estudio.enviado));
-      setEstudiosNoEnviados(estudios.filter((estudio) => !estudio.enviado));
-    } catch (error) {
-      console.error("Error fetching estudios juridicos:", error);
-    }
-  };
 
   return (
     <div>

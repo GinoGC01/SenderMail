@@ -1,9 +1,15 @@
+import { useContext, useState } from "react";
+import { StudiosContext } from "../context/StudiosContext";
+
 export default function FormStudios() {
+  const { fetchEstudios } = useContext(StudiosContext);
+  const [isLoading, setIsLoading] = useState(false);
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const fields = Object.fromEntries(formData);
+    setIsLoading(true);
 
     try {
       const response = await fetch("http://localhost:1234/estudios-juridicos", {
@@ -19,11 +25,15 @@ export default function FormStudios() {
       }
 
       const data = await response.json();
-      console.log("Datos enviados correctamente:", data);
+      if (data.message === "Datos insertados correctamente") {
+        fetchEstudios();
+      }
       // Puedes realizar alguna acción adicional aquí si es necesario
     } catch (error) {
       console.error("Error al enviar los datos:", error);
       // Manejar el error de envío de datos aquí
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -45,7 +55,9 @@ export default function FormStudios() {
         <label htmlFor="telefono">Teléfono</label>
         <input type="tel" id="telefono" name="telefono" />
       </div>
-      <button type="submit">Enviar</button>
+      <button type="submit">
+        {isLoading ? "Cargando estudio..." : "Cargar"}
+      </button>
     </form>
   );
 }

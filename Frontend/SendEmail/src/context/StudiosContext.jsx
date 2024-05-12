@@ -4,12 +4,34 @@ import PropTypes from "prop-types";
 export const StudiosContext = createContext();
 
 export function StudiosProvider({ children }) {
-  const [studios, setStudios] = useState([]);
-  const [studiosUpdate, setStudiosUpdate] = useState([]);
+  const [estudiosEnviados, setEstudiosEnviados] = useState([]);
+  const [estudiosNoEnviados, setEstudiosNoEnviados] = useState([]);
+  const URL_BACKEND = "http://localhost:1234";
+
+  const fetchEstudios = async () => {
+    try {
+      const response = await fetch(`${URL_BACKEND}/estudios-juridicos`);
+      if (!response.ok) {
+        throw new Error("Error al obtener los estudios juridicos");
+      }
+      const estudios = await response.json();
+      setEstudiosEnviados(estudios.filter((estudio) => estudio.enviado));
+      setEstudiosNoEnviados(estudios.filter((estudio) => !estudio.enviado));
+    } catch (error) {
+      console.error("Error fetching estudios juridicos:", error);
+    }
+  };
 
   return (
     <StudiosContext.Provider
-      value={{ studios, setStudios, studiosUpdate, setStudiosUpdate }}
+      value={{
+        estudiosEnviados,
+        setEstudiosEnviados,
+        estudiosNoEnviados,
+        setEstudiosNoEnviados,
+        fetchEstudios,
+        URL_BACKEND,
+      }}
     >
       {children}
     </StudiosContext.Provider>

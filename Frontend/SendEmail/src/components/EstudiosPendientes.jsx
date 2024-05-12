@@ -1,20 +1,17 @@
 import DeleteStudios from "./DeleteStudiosButton";
-import EnviadoButton from "./EnviadoButton";
 import PropTypes from "prop-types";
+import EnviarEmailsForm from "./EnviarEmailsForm";
 
-export default function EstudiosPendientes({
-  estudiosNoEnviados,
-  url,
-  fetchEstudios,
-}) {
+export default function EstudiosPendientes({ estudiosNoEnviados }) {
   return (
     <>
       <h2>Estudios Juridicos Emails: No Enviados</h2>
+      <EnviarEmailsForm />
       <ul>
-        {estudiosNoEnviados.map(({ id, nombre }) => (
+        {estudiosNoEnviados.map(({ id, nombre, email }) => (
           <li key={id}>
             {nombre}
-            <EnviadoButton id={id} url={url} fetchEstudios={fetchEstudios} />
+            {email}
             <DeleteStudios id={id} />
           </li>
         ))}
