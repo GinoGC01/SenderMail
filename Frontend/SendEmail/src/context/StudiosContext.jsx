@@ -18,6 +18,7 @@ export function StudiosProvider({ children }) {
       setEstudiosEnviados(estudios.filter((estudio) => estudio.enviado));
       setEstudiosNoEnviados(estudios.filter((estudio) => !estudio.enviado));
     } catch (error) {
+      if (error.status == null) return;
       console.error("Error fetching estudios juridicos:", error);
     }
   };

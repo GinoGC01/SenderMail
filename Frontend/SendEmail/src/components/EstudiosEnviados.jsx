@@ -5,9 +5,20 @@ export default function EstudiosEnviados({ estudiosEnviados }) {
     <>
       <h2>Estudios Juridicos Emails: Enviados</h2>
       <ul>
-        {estudiosEnviados.map(({ id, nombre }) => (
-          <li key={id}>{nombre}</li>
-        ))}
+        {estudiosEnviados.map(({ id, nombre, fecha_envio }) => {
+          const fechaEnvio = new Date(fecha_envio);
+          const updateFecha = fechaEnvio
+            .toISOString()
+            .slice(0, 19)
+            .replace("T", " ");
+
+          return (
+            <li key={id}>
+              <p>{nombre}</p>
+              <p>{updateFecha}</p>
+            </li>
+          );
+        })}
       </ul>
     </>
   );
