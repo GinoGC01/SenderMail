@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { StudiosContext } from "../context/StudiosContext";
 
-export default function FormStudios() {
+export default function useCargarEstudio() {
   const { fetchEstudios } = useContext(StudiosContext);
   const [isLoading, setIsLoading] = useState(false);
   async function handleSubmit(e) {
@@ -27,6 +27,7 @@ export default function FormStudios() {
       const data = await response.json();
       if (data.message === "Datos insertados correctamente") {
         fetchEstudios();
+        form.reset(); // Restablecer el formulario después de un envío exitoso
       }
       // Puedes realizar alguna acción adicional aquí si es necesario
     } catch (error) {
@@ -36,28 +37,5 @@ export default function FormStudios() {
       setIsLoading(false);
     }
   }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="nombre">Nombre</label>
-        <input type="text" name="nombre" id="nombre" />
-      </div>
-      <div>
-        <label htmlFor="ubicacion">Ubicacion</label>
-        <input type="text" id="ubicacion" name="ubicacion" />
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" />
-      </div>
-      <div>
-        <label htmlFor="telefono">Teléfono</label>
-        <input type="tel" id="telefono" name="telefono" />
-      </div>
-      <button type="submit">
-        {isLoading ? "Cargando estudio..." : "Cargar"}
-      </button>
-    </form>
-  );
+  return { isLoading, handleSubmit };
 }

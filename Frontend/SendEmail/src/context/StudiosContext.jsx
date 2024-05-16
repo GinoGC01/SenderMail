@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 export const StudiosContext = createContext();
@@ -6,6 +6,7 @@ export const StudiosContext = createContext();
 export function StudiosProvider({ children }) {
   const [estudiosEnviados, setEstudiosEnviados] = useState([]);
   const [estudiosNoEnviados, setEstudiosNoEnviados] = useState([]);
+  const [totalEstudios, setTotalEstudios] = useState([]);
   const URL_BACKEND = "http://localhost:1234";
 
   const fetchEstudios = async () => {
@@ -15,6 +16,7 @@ export function StudiosProvider({ children }) {
         throw new Error("Error al obtener los estudios juridicos");
       }
       const estudios = await response.json();
+      setTotalEstudios(estudios);
       setEstudiosEnviados(estudios.filter((estudio) => estudio.enviado));
       setEstudiosNoEnviados(estudios.filter((estudio) => !estudio.enviado));
     } catch (error) {
@@ -23,13 +25,16 @@ export function StudiosProvider({ children }) {
     }
   };
 
+  useEffect(() => {
+    fetchEstudios();
+  }, []);
+
   return (
     <StudiosContext.Provider
       value={{
         estudiosEnviados,
-        setEstudiosEnviados,
         estudiosNoEnviados,
-        setEstudiosNoEnviados,
+        totalEstudios,
         fetchEstudios,
         URL_BACKEND,
       }}

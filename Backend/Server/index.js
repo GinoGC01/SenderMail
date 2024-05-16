@@ -42,14 +42,6 @@ app.get('/estudios-juridicos', async (req, res) => {
         return
       }
 
-      // Comprobar si no hay resultados
-      if (results.length === 0) {
-        res
-          .status(200)
-          .json({ error: 'No se encontraron estudios jurídicos', status: null })
-        return
-      }
-
       // Enviar los resultados como respuesta
       res.json(results)
     })

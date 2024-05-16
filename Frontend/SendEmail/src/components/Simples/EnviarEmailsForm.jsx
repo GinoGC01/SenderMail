@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { StudiosContext } from "../context/StudiosContext";
+import { StudiosContext } from "../../context/StudiosContext";
 
 export default function EnviarEmailsForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +28,7 @@ export default function EnviarEmailsForm() {
 
       const estudios = await response.json();
       if (estudios.ok) {
+        form.reset();
         fetchEstudios();
       }
     } catch (error) {
@@ -38,18 +39,23 @@ export default function EnviarEmailsForm() {
   };
 
   return (
-    <form onSubmit={enviarEmails}>
-      <div>
-        <label htmlFor="subject">asunto</label>
-        <input type="text" name="subject" id="subject" />
-      </div>
-      <div>
-        <label htmlFor="message">mensaje</label>
-        <input type="text" name="message" id="message" />
-      </div>
-      <button type="submit" disabled={isLoading}>
-        {isLoading ? "Enviando..." : "Enviar Emails"}
-      </button>
-    </form>
+    <section className="enviar-email">
+      <header>
+        <h3>Personalizar mensaje</h3>
+      </header>
+      <form onSubmit={enviarEmails} className="enviar-email-form">
+        <div>
+          <label htmlFor="subject">asunto</label>
+          <input type="text" name="subject" id="subject" />
+        </div>
+        <div>
+          <label htmlFor="message">mensaje</label>
+          <textarea name="message" id="message" />
+        </div>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Enviando..." : "Enviar Emails"}
+        </button>
+      </form>
+    </section>
   );
 }
