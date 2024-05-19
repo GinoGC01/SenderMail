@@ -10,6 +10,7 @@ import EstudiosJuridicosEnviados from "./Sections/EstudiosJuridicosEnviados.jsx"
 import ButtonSendEmail from "../Simples/ButtonSendEmail.jsx";
 import UploadStudio from "../Icons/UploadStudio.jsx";
 import PersonalizeMessage from "../Icons/PersonalizeMessage.jsx";
+import Funcionalidades from "../Icons/Funcionalidades.jsx";
 
 export default function Dashboard() {
   const { estudiosEnviados, fetchEstudios, estudiosNoEnviados } =
@@ -52,7 +53,9 @@ export default function Dashboard() {
       </section>
       <section className="data">
         <header>
-          <h3>Información y funcioanlidades</h3>
+          <h3>
+            Información y funcioanlidades <Funcionalidades />
+          </h3>
         </header>
         <EstudiosJuridicosPendientes estudiosNoEnviados={estudiosNoEnviados} />
         <Graficos />

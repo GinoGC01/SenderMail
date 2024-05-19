@@ -156,6 +156,16 @@
     padding: 5px;
 }
 
+.data > header h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5em;
+    flex-direction: row-reverse;
+    font-size: 1.3em;
+    text-transform: uppercase;
+}
+
 .tabla-estudios-juridicos{
     width: 100%;
     border-radius: 20px;
@@ -166,7 +176,11 @@
 .tabla-estudios-juridicos header{
     padding: 10px;
     border-bottom: 1px solid #ffffff0c;
+}
 
+.tabla-estudios-juridicos header strong{
+    font-size: .8em;
+    color: #eab308;
 }
 
 .tabla-estudios-juridicos > table {

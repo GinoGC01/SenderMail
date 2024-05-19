@@ -14,7 +14,7 @@ export default function TablaEmailsEnviados({ estudiosEnviados }) {
               <th>Estudio Jurídico</th>
               <th>Email</th>
               <th>Estado</th>
-              <th>Hora de Envío</th>
+              <th>Fecha de Envío</th>
             </tr>
           </thead>
           <tbody>
@@ -31,7 +31,10 @@ export default function TablaEmailsEnviados({ estudiosEnviados }) {
                   <td>
                     {estudio.enviado === 1 && <Check strokeWidth={2.5} />}
                   </td>
-                  <td>{updateFecha}</td>
+                  <td>
+                    {updateFecha}
+                    {updateFecha > 12 ? " p.m" : " a.m"}
+                  </td>
                 </tr>
               );
             })}
