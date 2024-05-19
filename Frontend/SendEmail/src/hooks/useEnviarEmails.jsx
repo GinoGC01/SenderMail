@@ -14,13 +14,16 @@ export default function useEnviarEmails() {
     const fields = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("http://localhost:1234/enviar-emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(fields),
-      });
+      const response = await fetch(
+        "http://localhost:1234/estudios-juridicos/enviar-emails",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(fields),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error al obtener los estudios juridicos");

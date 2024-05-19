@@ -12,13 +12,16 @@ export default function useCargarEstudio() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:1234/estudios-juridicos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(fields),
-      });
+      const response = await fetch(
+        "http://localhost:1234/estudios-juridicos/cargar-estudio",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(fields),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error al enviar los datos");

@@ -13,13 +13,16 @@ export default function ButtonSendEmail() {
     };
 
     try {
-      const response = await fetch("http://localhost:1234/enviar-emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "http://localhost:1234/estudios-juridicos/enviar-emails",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error al obtener los estudios juridicos");
