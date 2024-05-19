@@ -1,4 +1,6 @@
 import useCargarEstudio from "../../hooks/useCargarEstudio";
+import Loader01 from "../Icons/Loader01";
+import UploadStudio from "../Icons/UploadStudio";
 
 export default function FormStudios() {
   const { isLoading, handleSubmit } = useCargarEstudio();
@@ -25,8 +27,16 @@ export default function FormStudios() {
           <label htmlFor="telefono">Teléfono</label>
           <input type="tel" id="telefono" name="telefono" />
         </div>
-        <button type="submit">
-          {isLoading ? "Cargando estudio..." : "Cargar"}
+        <button type="submit" className="button-form">
+          {isLoading ? (
+            <div className="loader-01">
+              <Loader01 />
+            </div>
+          ) : (
+            <>
+              Cargar Estudio <UploadStudio />
+            </>
+          )}
         </button>
       </form>
     </section>

@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
 import { StudiosContext } from "../../context/StudiosContext";
+import SendMessage from "../Icons/SendMessage";
+import Loader01 from "../Icons/Loader01";
 
 export default function ButtonSendEmail() {
   const [isLoading, setIsLoading] = useState(false);
@@ -40,8 +42,16 @@ export default function ButtonSendEmail() {
   };
 
   return (
-    <button onClick={enviarEmails} disabled={isLoading}>
-      {isLoading ? "Enviando..." : "Enviar Emails"}
+    <button onClick={enviarEmails} disabled={isLoading} className="button-form">
+      {isLoading ? (
+        <div className={"loader-01"}>
+          <Loader01 />
+        </div>
+      ) : (
+        <div className={"off-loader-01"}>
+          Enviar Emails <SendMessage />
+        </div>
+      )}
     </button>
   );
 }

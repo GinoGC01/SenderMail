@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { StudiosContext } from "../../context/StudiosContext";
+import Loader01 from "../Icons/Loader01";
+import SendMessage from "../Icons/SendMessage";
 
 export default function EnviarEmailsForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +58,15 @@ export default function EnviarEmailsForm() {
           <textarea name="message" id="message" />
         </div>
         <button type="submit" disabled={isLoading}>
-          {isLoading ? "Enviando..." : "Enviar Emails"}
+          {isLoading ? (
+            <div className="loader-01">
+              <Loader01 />
+            </div>
+          ) : (
+            <>
+              Enviar Emails <SendMessage />
+            </>
+          )}
         </button>
       </form>
     </section>

@@ -67,6 +67,13 @@
 }
 
 .utils-li button{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction:row-reverse;
+    gap: .5em;
+
+
     background-color: transparent;
     border: none;
     font-size: 1em;
@@ -91,12 +98,41 @@
 .button-send-emails-DEFAULT button{
     border: none;
     width: 100%;
-    padding: 15px 20px;
+    padding: 10px 20px;
     border-radius: 10px;
     font-size: 1em;
     background: rgb(143,44,255);
     background: linear-gradient(90deg, rgba(143,44,255,1) 0%, rgba(24,221,221,1) 100%);
     cursor: pointer;
+}
+
+.loader-01{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 1.5em;
+    animation: loading linear 1s infinite ;
+}
+
+.off-loader-01{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    gap: .5em;
+}
+
+@keyframes loading {
+    0% {
+        transform:  rotateZ(0deg);
+    }
+    50% {
+        transform:  rotateZ(180deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
 }
 
 /* información */
@@ -195,9 +231,14 @@
 }
 
 .tabla-estudios-juridicos tr > td:nth-child(5){
-    color: #c4d111;
-    font-weight: bold;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 12em;
+    font-size: 1.2em;
 }
+
 
 .tabla-estudios-juridicos tr:hover {
     background-color: #ffffff1c; /* Color de fondo al pasar el mouse */
@@ -272,8 +313,11 @@
 
 
 .emails-enviados tbody tr td:nth-child(3){
-    color: green;
-    font-weight: bold;
+    display: flex;
+    font-size: 1.2em;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .emails-enviados tbody tr td:nth-child(4){
@@ -360,9 +404,15 @@
 }
 
 .cargar-estudio-form button, .enviar-email-form button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5em;
+    height: 2.5em;
+
+
     background: none;
     border: none;
-    padding: 10px;
     background: #18dddd;
     background: linear-gradient(90deg, #18dddd 0%, #8f2cff 100%);
     border-radius: 10px;

@@ -8,6 +8,8 @@ import useOpenComponent from "../../hooks/useOpenComponent.jsx";
 import Footer from "../Simples/Footer.jsx";
 import EstudiosJuridicosEnviados from "./Sections/EstudiosJuridicosEnviados.jsx";
 import ButtonSendEmail from "../Simples/ButtonSendEmail.jsx";
+import UploadStudio from "../Icons/UploadStudio.jsx";
+import PersonalizeMessage from "../Icons/PersonalizeMessage.jsx";
 
 export default function Dashboard() {
   const { estudiosEnviados, fetchEstudios, estudiosNoEnviados } =
@@ -34,11 +36,13 @@ export default function Dashboard() {
         </header>
         <ul>
           <li className="utils-li">
-            <button onClick={cargasStudios.handleOpen}>cargar estudio</button>
+            <button onClick={cargasStudios.handleOpen}>
+              Cargar estudio <UploadStudio />
+            </button>
           </li>
           <li className="utils-li">
             <button onClick={enviarEmails.handleOpen}>
-              personalizar mensaje
+              Mod. mensaje <PersonalizeMessage />
             </button>
           </li>
           <li className="button-send-emails-DEFAULT">

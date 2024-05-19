@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
+import Check from "../Icons/Check";
 
 export default function TablaEmailsEnviados({ estudiosEnviados }) {
   const estudiosPendientes = estudiosEnviados.length;
   return (
     <>
       {estudiosPendientes === 0 ? (
-        <p>No hay emails enviados</p>
+        <p>No hay Emails enviados</p>
       ) : (
         <table>
           <thead>
@@ -27,7 +28,9 @@ export default function TablaEmailsEnviados({ estudiosEnviados }) {
                 <tr key={estudio.id}>
                   <td>{estudio.nombre}</td>
                   <td>{estudio.email}</td>
-                  <td>{estudio.enviado === 1 && "Enviado"}</td>
+                  <td>
+                    {estudio.enviado === 1 && <Check strokeWidth={2.5} />}
+                  </td>
                   <td>{updateFecha}</td>
                 </tr>
               );
