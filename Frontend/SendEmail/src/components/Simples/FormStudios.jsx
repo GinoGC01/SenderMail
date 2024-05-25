@@ -3,12 +3,16 @@ import Loader01 from "../Icons/Loader01";
 import UploadStudio from "../Icons/UploadStudio";
 
 export default function FormStudios() {
-  const { isLoading, handleSubmit } = useCargarEstudio();
+  const { isLoading, handleSubmit, error } = useCargarEstudio();
 
   return (
     <section className="cargar-estudio">
       <header>
         <h3>Cargar Estudio Juridico</h3>
+        <p>
+          {error === "dato-existente" &&
+            "Se ingresó un dato ya existente. Por favor revise los campos antes de seguir."}
+        </p>
       </header>
       <form onSubmit={handleSubmit} className="cargar-estudio-form">
         <div>

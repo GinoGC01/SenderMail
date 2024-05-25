@@ -84,7 +84,12 @@ export class SEController {
           .status(200)
           .json({ message: 'Datos insertados correctamente' })
       } catch (error) {
-        console.error('Error al insertar datos a la base de datos:', error)
+        console.error('Controlador: ', error)
+        if (error.codigo === 'ER_DUP_ENTRY') {
+          return res
+            .status(400)
+            .json({ error: 'Datos Existentes', codigo: 'dato-existente' })
+        }
         return res
           .status(500)
           .json({ error: 'Error al insertar datos a la base de datos' })

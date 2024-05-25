@@ -65,7 +65,10 @@ export class SEModel {
         [id, nombre, ubicacion, email, telefono],
         (error, results) => {
           if (error) {
-            return reject(error)
+            if (error.code === 'ER_DUP_ENTRY') {
+              return reject({ codigo: 'ER_DUP_ENTRY', status: false })
+            }
+            return reject(`Modelo: ${error.code}`)
           }
           resolve(results)
         }

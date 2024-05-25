@@ -4,12 +4,15 @@ import { StudiosContext } from "../context/StudiosContext";
 export default function useCargarEstudio() {
   const { fetchEstudios } = useContext(StudiosContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const fields = Object.fromEntries(formData);
     setIsLoading(true);
+    setError(null);
 
     try {
       const response = await fetch(
@@ -24,21 +27,21 @@ export default function useCargarEstudio() {
       );
 
       if (!response.ok) {
-        throw new Error("Error al enviar los datos");
+        const errorData = await response.json();
+        throw new Error(errorData.codigo || "Error al enviar los datos");
       }
 
       const data = await response.json();
       if (data.message === "Datos insertados correctamente") {
         fetchEstudios();
-        form.reset(); // Restablecer el formulario después de un envío exitoso
+        form.reset();
       }
-      // Puedes realizar alguna acción adicional aquí si es necesario
     } catch (error) {
-      console.error("Error al enviar los datos:", error);
-      // Manejar el error de envío de datos aquí
+      setError(error.message);
     } finally {
       setIsLoading(false);
     }
   }
-  return { isLoading, handleSubmit };
+
+  return { isLoading, handleSubmit, error };
 }

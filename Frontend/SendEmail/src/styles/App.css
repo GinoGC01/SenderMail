@@ -331,6 +331,7 @@
     font-size: 1.2em;
     align-items: center;
     justify-content: center;
+    margin: 3px 0 0;
 
 }
 
@@ -360,6 +361,8 @@
     display: none;
 }
 
+
+
 .formularios{
     display: flex;
     flex-wrap: nowrap;
@@ -378,6 +381,13 @@
     box-shadow: 0 0 10px #ffffff0a;
     padding: 20px;
 
+}
+
+.cargar-estudio > header > p{
+    color: red;
+    padding: 10px 0;
+    font-size: 1em;
+    font-weight: bold;
 }
 
 .cargar-estudio-form, .enviar-email-form{

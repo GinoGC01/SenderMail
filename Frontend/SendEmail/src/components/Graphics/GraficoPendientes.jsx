@@ -11,7 +11,7 @@ export default function GraficoPendientes({ label }) {
       height: 280,
       type: "radialBar",
     },
-    series: [series],
+    series: [number == 0 ? number : series],
     colors: ["#18dddd"],
     // plotOptions: Opciones específicas del gráfico radial.
     plotOptions: {

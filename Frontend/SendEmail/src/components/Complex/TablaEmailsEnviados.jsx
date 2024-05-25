@@ -24,6 +24,7 @@ export default function TablaEmailsEnviados({ estudiosEnviados }) {
                 .toISOString()
                 .slice(0, 16)
                 .replace("T", " ");
+              const hora = parseInt(updateFecha.slice(11, 13));
               return (
                 <tr key={estudio.id}>
                   <td>{estudio.nombre}</td>
@@ -33,7 +34,7 @@ export default function TablaEmailsEnviados({ estudiosEnviados }) {
                   </td>
                   <td>
                     {updateFecha}
-                    {updateFecha > 12 ? " p.m" : " a.m"}
+                    {hora > 12 ? " p.m" : " a.m"}
                   </td>
                 </tr>
               );
