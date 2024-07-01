@@ -12,7 +12,7 @@
     display: grid;
     grid-template-columns: 1fr 60% 30%;
     grid-template-rows: 7% 88% 1fr;
-    height: 100vh;
+    min-height: 100vh;
     padding: .5em;
 }
 
@@ -104,6 +104,10 @@
     background: rgb(143,44,255);
     background: linear-gradient(90deg, rgba(143,44,255,1) 0%, rgba(24,221,221,1) 100%);
     cursor: pointer;
+}
+
+.button-send-emails-DEFAULT-disabled{
+    display: none;
 }
 
 .loader-01{
@@ -458,5 +462,6 @@ footer{
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px 0;
 }
 

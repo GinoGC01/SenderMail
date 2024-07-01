@@ -46,7 +46,13 @@ export default function Dashboard() {
               Mod. mensaje <PersonalizeMessage />
             </button>
           </li>
-          <li className="button-send-emails-DEFAULT">
+          <li
+            className={
+              estudiosNoEnviados.length > 0
+                ? "button-send-emails-DEFAULT"
+                : "button-send-emails-DEFAULT-disabled"
+            }
+          >
             <ButtonSendEmail />
           </li>
         </ul>

@@ -2,13 +2,13 @@ import { useState, useContext } from "react";
 import { StudiosContext } from "../../context/StudiosContext";
 import SendMessage from "../Icons/SendMessage";
 import Loader01 from "../Icons/Loader01";
+import PropTypes from "prop-types";
 
 export default function ButtonSendEmail() {
   const [isLoading, setIsLoading] = useState(false);
   const { fetchEstudios } = useContext(StudiosContext);
 
   const enviarEmails = async () => {
-    setIsLoading(true); // Activar carga
     const body = {
       subject: "subject default",
       message: "message default",
@@ -55,3 +55,7 @@ export default function ButtonSendEmail() {
     </button>
   );
 }
+
+ButtonSendEmail.propTypes = {
+  estudiosNoEnviados: PropTypes.array.isRequired,
+};
