@@ -31,6 +31,12 @@ export default function FormStudios() {
           <label htmlFor="telefono">Teléfono</label>
           <input type="tel" id="telefono" name="telefono" />
         </div>
+        <div>
+          <label htmlFor="asunto">Asunto</label>
+          <select id="asunto" name="asunto">
+            <option value="newPage">Página Nueva</option>
+          </select>
+        </div>
         <button type="submit" className="button-form">
           {isLoading ? (
             <div className="loader-01">

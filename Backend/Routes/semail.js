@@ -7,4 +7,6 @@ SEmailouter.get('/', SEController.getAll)
 
 SEmailouter.post('/enviar-emails', SEController.enviarEmail)
 
+SEmailouter.post('/enviar-emails-subject', SEController.enviarEmailFromSubject)
+
 SEmailouter.post('/cargar-estudio', SEController.cargarEmail)

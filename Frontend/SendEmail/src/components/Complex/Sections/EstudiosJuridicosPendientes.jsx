@@ -8,7 +8,7 @@ export default function EstudiosJuridicosPendientes({ estudiosNoEnviados }) {
       <header>
         <h3>
           Estudios jurídicos <strong>PENDIENTES</strong> (
-          {cantidadEstudiosPendientes})
+          {cantidadEstudiosPendientes}) - TODOS
         </h3>
       </header>
       <TablaEmailsPendientes estudiosNoEnviados={estudiosNoEnviados} />

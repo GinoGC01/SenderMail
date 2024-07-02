@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react";
 import FormStudios from "../Simples/FormStudios.jsx";
 import EnviarEmailsForm from "../Simples/EnviarEmailsForm.jsx";
 import { StudiosContext } from "../../context/StudiosContext";
-import EstudiosJuridicosPendientes from "./Sections/EstudiosJuridicosPendientes.jsx";
 import Graficos from "./Sections/Graficos.jsx";
 import useOpenComponent from "../../hooks/useOpenComponent.jsx";
 import Footer from "../Simples/Footer.jsx";
@@ -11,6 +10,9 @@ import ButtonSendEmail from "../Simples/ButtonSendEmail.jsx";
 import UploadStudio from "../Icons/UploadStudio.jsx";
 import PersonalizeMessage from "../Icons/PersonalizeMessage.jsx";
 import Funcionalidades from "../Icons/Funcionalidades.jsx";
+import EstudiosJuridicosAsunto from "./Sections/EstudiosJuridicosAsunto.jsx";
+import ButtonSendEmailSubject from "../Simples/ButtonSendEmailSubject.jsx";
+import { PAGINA_NUEVA, REFACCIONAR_PAGINA } from "../../constants/asuntos.js";
 
 export default function Dashboard() {
   const { estudiosEnviados, fetchEstudios, estudiosNoEnviados } =
@@ -54,6 +56,14 @@ export default function Dashboard() {
             }
           >
             <ButtonSendEmail />
+            <ButtonSendEmailSubject
+              asuntoContent={PAGINA_NUEVA}
+              text="Página nueva"
+            />
+            <ButtonSendEmailSubject
+              asuntoContent={REFACCIONAR_PAGINA}
+              text="Refactorizar Página"
+            />
           </li>
         </ul>
       </section>
@@ -63,7 +73,7 @@ export default function Dashboard() {
             Información y funcioanlidades <Funcionalidades />
           </h3>
         </header>
-        <EstudiosJuridicosPendientes estudiosNoEnviados={estudiosNoEnviados} />
+        <EstudiosJuridicosAsunto />
         <Graficos />
         <section className="funcionalidades">
           <header>

@@ -7,8 +7,7 @@
 }
 
 .dashboard{
-    width: 90%;
-    margin: auto;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 60% 30%;
     grid-template-rows: 7% 88% 1fr;
@@ -84,6 +83,7 @@
     text-align: start;
 }
 
+
 .utils button:hover{
     opacity: .8;
 }
@@ -93,6 +93,11 @@
     bottom: 20px;
     width: 100%;
     padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
 }
 
 .button-send-emails-DEFAULT button{
@@ -168,6 +173,26 @@
     flex-direction: row-reverse;
     font-size: 1.3em;
     text-transform: uppercase;
+}
+
+.buttons-emailsAsuntos_conteiner{
+    display: flex;
+    gap: 1em;
+    padding: 10px 0;
+
+}
+
+.buttons-emailsAsuntos_conteiner button{
+    background-color: transparent;
+    padding: 5px 10px;
+    border: none;
+    border: 1px solid #ffffff1c;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons-emailsAsuntos_conteiner button:hover{
+    opacity: .8;
 }
 
 .tabla-estudios-juridicos{
@@ -374,6 +399,7 @@
     justify-content: center;
     width: 100%;
     gap: 1.5em;
+    padding: 20px 0;
 }
 
 .cargar-estudio, .enviar-email{
@@ -384,6 +410,8 @@
     border-radius: 20px;
     box-shadow: 0 0 10px #ffffff0a;
     padding: 20px;
+    height: 33em;
+
 
 }
 
@@ -398,7 +426,10 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 1.2em;
+    height: 100%;
+
 }
 
 .cargar-estudio-form div, .enviar-email-form div{

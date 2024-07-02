@@ -6,6 +6,7 @@ export const StudiosContext = createContext();
 export function StudiosProvider({ children }) {
   const [estudiosEnviados, setEstudiosEnviados] = useState([]);
   const [estudiosNoEnviados, setEstudiosNoEnviados] = useState([]);
+
   const [totalEstudios, setTotalEstudios] = useState([]);
   const URL_BACKEND = "http://localhost:1234";
 
@@ -34,6 +35,7 @@ export function StudiosProvider({ children }) {
       value={{
         estudiosEnviados,
         estudiosNoEnviados,
+
         totalEstudios,
         fetchEstudios,
         URL_BACKEND,

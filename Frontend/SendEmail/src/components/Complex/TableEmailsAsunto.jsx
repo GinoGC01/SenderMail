@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import Pending from "../Icons/Pending";
 
-export default function TablaEmailsPendientes({ estudiosNoEnviados }) {
-  const estudiosPendientes = estudiosNoEnviados.length;
+export default function TableEmailsAsunto({ estudiosAsunto }) {
+  const estudiosPendientes = estudiosAsunto.length;
   return (
     <>
       {estudiosPendientes === 0 ? (
@@ -20,7 +20,7 @@ export default function TablaEmailsPendientes({ estudiosNoEnviados }) {
             </tr>
           </thead>
           <tbody>
-            {estudiosNoEnviados?.map((estudio) => {
+            {estudiosAsunto?.map((estudio) => {
               const asunto = () => {
                 if (estudio.asunto == "newPage") {
                   return "Crear página";
@@ -47,6 +47,6 @@ export default function TablaEmailsPendientes({ estudiosNoEnviados }) {
   );
 }
 
-TablaEmailsPendientes.propTypes = {
-  estudiosNoEnviados: PropTypes.array.isRequired,
+TableEmailsAsunto.propTypes = {
+  estudiosAsunto: PropTypes.array.isRequired,
 };
