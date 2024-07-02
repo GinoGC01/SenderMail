@@ -1,7 +1,11 @@
 // Formatea la fecha de envío
-const fechaEnvio = new Date()
-fechaEnvio.setHours(fechaEnvio.getHours() - 6)
-export const fechaEnvioFormateada = fechaEnvio
-  .toISOString()
-  .slice(0, 19)
-  .replace('T', ' ')
+
+export function fechaFormateada(fecha) {
+  fecha.setHours(fecha.getHours() - 6)
+  const fechaEnvioFormateada = fecha
+    .toISOString()
+    .slice(0, 19)
+    .replace('T', ' ')
+
+  return fechaEnvioFormateada
+}

@@ -15,8 +15,7 @@ import ButtonSendEmailSubject from "../Simples/ButtonSendEmailSubject.jsx";
 import { PAGINA_NUEVA, REFACCIONAR_PAGINA } from "../../constants/asuntos.js";
 
 export default function Dashboard() {
-  const { estudiosEnviados, fetchEstudios, estudiosNoEnviados } =
-    useContext(StudiosContext);
+  const { fetchEstudios, estudiosNoEnviados } = useContext(StudiosContext);
 
   const cargasStudios = useOpenComponent();
   const enviarEmails = useOpenComponent();
@@ -85,7 +84,7 @@ export default function Dashboard() {
           </div>
         </section>
       </section>
-      <EstudiosJuridicosEnviados estudiosEnviados={estudiosEnviados} />
+      <EstudiosJuridicosEnviados />
       <Footer />
     </section>
   );

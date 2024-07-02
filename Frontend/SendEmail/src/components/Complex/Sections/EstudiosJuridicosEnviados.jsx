@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import TablaEmailsEnviados from "../TablaEmailsEnviados";
-import PropTypes from "prop-types";
+import { StudiosContext } from "../../../context/StudiosContext";
 
-export default function EstudiosJuridicosEnviados({ estudiosEnviados }) {
+export default function EstudiosJuridicosEnviados() {
+  const { estudiosEnviados } = useContext(StudiosContext);
   const cantidadEstudiosEnviados = estudiosEnviados.length;
   return (
     <aside className="emails-enviados">
@@ -12,7 +14,3 @@ export default function EstudiosJuridicosEnviados({ estudiosEnviados }) {
     </aside>
   );
 }
-
-EstudiosJuridicosEnviados.propTypes = {
-  estudiosEnviados: PropTypes.array.isRequired,
-};

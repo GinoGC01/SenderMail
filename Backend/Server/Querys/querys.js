@@ -1,5 +1,5 @@
 export const SELLECT_ALL = `
-SELECT e.*, ee.enviado, ee.fecha_envio
+SELECT e.*, ee.enviado, ee.fecha_envio, ee.mensaje
 FROM estudios_juridicos e
 LEFT JOIN emails_enviados ee ON e.id = ee.estudio_juridico_id;
 `
@@ -8,14 +8,14 @@ FROM estudios_juridicos
 JOIN emails_enviados ON estudios_juridicos.id = emails_enviados.estudio_juridico_id
 WHERE emails_enviados.enviado = false;`
 
-export const EMAILS_ASUNTO = `SELECT estudios_juridicos.id, estudios_juridicos.email
+export const EMAILS_ASUNTO = `SELECT estudios_juridicos.id, estudios_juridicos.email,emails_enviados.mensaje,
 FROM estudios_juridicos
 JOIN emails_enviados ON estudios_juridicos.id = emails_enviados.estudio_juridico_id
 WHERE emails_enviados.enviado = false
 AND estudios_juridicos.asunto = ?;`
 
-export const ACTUALIZAR_EMAIL_ENVIADO = `UPDATE emails_enviados SET enviado = ?, fecha_envio = ? WHERE estudio_juridico_id = ?`
+export const ACTUALIZAR_EMAIL_ENVIADO = `UPDATE emails_enviados SET enviado = ?, fecha_envio = ?, mensaje = ? WHERE estudio_juridico_id = ?`
 
 export const CARGAR_ESTUDIO_JURIDICO = `INSERT INTO estudios_juridicos (id, nombre, ubicacion, email, telefono, asunto) VALUES (?, ?, ?, ?, ?, ?)`
 
-export const CARGAR_EMAILS_ENVIADOS = `INSERT INTO emails_enviados (estudio_juridico_id, enviado) VALUES (?, ?)`
+export const CARGAR_EMAILS_ENVIADOS = `INSERT INTO emails_enviados (estudio_juridico_id, enviado, mensaje) VALUES (?, ?, ?)`

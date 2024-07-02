@@ -178,7 +178,9 @@
 .buttons-emailsAsuntos_conteiner{
     display: flex;
     gap: 1em;
-    padding: 10px 0;
+    padding: 10px 20px;
+    background-color: #eab308;
+    border-radius: 10px;
 
 }
 
@@ -186,13 +188,17 @@
     background-color: transparent;
     padding: 5px 10px;
     border: none;
-    border: 1px solid #ffffff1c;
+    color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color .2s, color .2s;
 }
 
 .buttons-emailsAsuntos_conteiner button:hover{
     opacity: .8;
+    background-color:rgba(0, 0, 0, 0.5) ;
+    color: #ffffff;
 }
 
 .tabla-estudios-juridicos{

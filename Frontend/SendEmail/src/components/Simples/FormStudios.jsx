@@ -35,6 +35,7 @@ export default function FormStudios() {
           <label htmlFor="asunto">Asunto</label>
           <select id="asunto" name="asunto">
             <option value="newPage">Página Nueva</option>
+            <option value="ImprovePage">Refaccionar Página</option>
           </select>
         </div>
         <button type="submit" className="button-form">

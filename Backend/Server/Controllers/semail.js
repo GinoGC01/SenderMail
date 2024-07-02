@@ -4,7 +4,7 @@ import { SEModel } from '../Models/semail.js'
 import { v4 as uuidv4 } from 'uuid'
 // Importa la función de envío de correos electrónicos desde el servicio nodemailer
 import { sendEmail } from '../Services/nodemailer.js'
-import { fechaEnvioFormateada } from '../Constants/date.js'
+import { fechaFormateada } from '../Constants/date.js'
 
 // Define la clase SEController que maneja las operaciones relacionadas con correos electrónicos
 export class SEController {
@@ -35,10 +35,16 @@ export class SEController {
       if (results.length > 0) {
         try {
           // Itera sobre cada correo electrónico pendiente y envía el mensaje
+          const fechaEnvio = new Date()
+          const fechaEnvioFormateada = fechaFormateada(fechaEnvio)
           for (const row of results) {
             await sendEmail(row.email, subject, message)
             // Actualiza el registro en la base de datos con la fecha de envío
-            await SEModel.updateSendingEmails(row.id, fechaEnvioFormateada)
+            await SEModel.updateSendingEmails(
+              row.id,
+              fechaEnvioFormateada,
+              message
+            )
           }
 
           // Responde con éxito si todos los correos fueron enviados
@@ -76,13 +82,23 @@ export class SEController {
     try {
       const { subject, message, asunto } = req.body
       const results = await SEModel.pendingSubjectEmails(asunto) // Corregir typo
-      console.log(results)
 
       if (results.length > 0) {
         try {
+          // Formatea la fecha de envío
+          const fechaEnvio = new Date()
+          const fechaEnvioFormateada = fechaFormateada(fechaEnvio)
           for (const row of results) {
+            // si ya se envio, lo salta y no cambia el mensaje. Sino, muta el mensaje.
+            if (row.mensaje != '') return
+            //envía
             await sendEmail(row.email, subject, message, asunto)
-            await SEModel.updateSendingEmails(row.id, fechaEnvioFormateada)
+            //actualiza en la tabla de enviados = fecha, mensaje, y estado de enviado
+            await SEModel.updateSendingEmails(
+              row.id,
+              fechaEnvioFormateada,
+              message
+            )
           }
           // Responde con éxito si todos los correos fueron enviados
           return res.status(200).json({

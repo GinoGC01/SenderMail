@@ -1,47 +1,11 @@
-import { useContext, useState } from "react";
-import { StudiosContext } from "../../context/StudiosContext";
+// import { useContext, useState } from "react";
+// import { StudiosContext } from "../../context/StudiosContext";
 import Loader01 from "../Icons/Loader01";
 import SendMessage from "../Icons/SendMessage";
+import useEnviarEmailsForm from "../../hooks/useEnviarEmailsForm";
 
 export default function EnviarEmailsForm() {
-  const [isLoading, setIsLoading] = useState(false);
-  const { fetchEstudios } = useContext(StudiosContext);
-
-  const enviarEmails = async (e) => {
-    e.preventDefault();
-    setIsLoading(true); // Comienza la carga
-
-    const form = e.target;
-    const formData = new FormData(form);
-    const fields = Object.fromEntries(formData);
-
-    try {
-      const response = await fetch(
-        "http://localhost:1234/estudios-juridicos/enviar-emails",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(fields),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error al obtener los estudios juridicos");
-      }
-
-      const estudios = await response.json();
-      if (estudios.ok) {
-        form.reset();
-        fetchEstudios();
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false); // Termina la carga
-    }
-  };
+  const { enviarEmails, isLoading } = useEnviarEmailsForm();
 
   return (
     <section className="enviar-email">
@@ -57,6 +21,14 @@ export default function EnviarEmailsForm() {
           <label htmlFor="message">mensaje</label>
           <textarea name="message" id="message" />
         </div>
+        <div>
+          <label htmlFor="asunto">Enviar (asunto)</label>
+          <select name="asunto" id="asunto">
+            <option value="newPage">Página nueva</option>
+            <option value="ImprovePage">Refaccionar página</option>
+          </select>
+        </div>
+
         <button type="submit" disabled={isLoading}>
           {isLoading ? (
             <div className="loader-01">

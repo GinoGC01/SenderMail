@@ -54,6 +54,7 @@ export class SEModel {
     })
   }
 
+  // Método estático para obtener correos electrónicos pendientes de envío segun el asunto
   static pendingSubjectEmails(asunto) {
     // Corregir typo
     const query = EMAILS_ASUNTO
@@ -68,13 +69,13 @@ export class SEModel {
   }
 
   // Método estático para actualizar el estado de envío de correos electrónicos
-  static updateSendingEmails(estudioJuridicoId, fechaEnvio) {
+  static updateSendingEmails(estudioJuridicoId, fechaEnvio, message) {
     const query = ACTUALIZAR_EMAIL_ENVIADO // Query definida para actualizar estado de envío
     return new Promise((resolve, reject) => {
       // Ejecuta la consulta SQL mediante la conexión a la base de datos
       connection.query(
         query,
-        [true, fechaEnvio, estudioJuridicoId],
+        [true, fechaEnvio, message, estudioJuridicoId],
         (error, results) => {
           if (error) {
             // Rechaza la promesa en caso de error y devuelve el error
@@ -112,11 +113,11 @@ export class SEModel {
   }
 
   // Método estático para insertar un registro de correo electrónico enviado en la base de datos
-  static postEmailsEnviados(id, enviado = false) {
+  static postEmailsEnviados(id, enviado = false, mensaje = '') {
     const query = CARGAR_EMAILS_ENVIADOS // Query definida para cargar correos electrónicos enviados
     return new Promise((resolve, reject) => {
       // Ejecuta la consulta SQL mediante la conexión a la base de datos
-      connection.query(query, [id, enviado], (error, results) => {
+      connection.query(query, [id, enviado, mensaje], (error, results) => {
         if (error) {
           // Rechaza la promesa en caso de error y devuelve el error
           return reject(error)

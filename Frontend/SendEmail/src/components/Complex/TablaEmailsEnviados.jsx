@@ -1,7 +1,10 @@
-import PropTypes from "prop-types";
-import Check from "../Icons/Check";
+// import Check from "../Icons/Check";
+import { useContext } from "react";
+import { StudiosContext } from "../../context/StudiosContext";
 
-export default function TablaEmailsEnviados({ estudiosEnviados }) {
+export default function TablaEmailsEnviados() {
+  const { estudiosEnviados } = useContext(StudiosContext);
+
   const estudiosPendientes = estudiosEnviados.length;
   return (
     <>
@@ -12,10 +15,10 @@ export default function TablaEmailsEnviados({ estudiosEnviados }) {
           <thead>
             <tr>
               <th>Estudio Jurídico</th>
-              <th>Email</th>
-              <th>Estado</th>
+              {/* <th>Estado</th> */}
               <th>Fecha de Envío</th>
               <th>Asunto</th>
+              <th>Mensaje</th>
             </tr>
           </thead>
           <tbody>
@@ -26,18 +29,19 @@ export default function TablaEmailsEnviados({ estudiosEnviados }) {
                 .slice(0, 16)
                 .replace("T", " ");
               const hora = parseInt(updateFecha.slice(11, 13));
+              console.log(estudio);
               return (
                 <tr key={estudio.id}>
                   <td>{estudio.nombre}</td>
-                  <td>{estudio.email}</td>
-                  <td>
+                  {/* <td>
                     {estudio.enviado === 1 && <Check strokeWidth={2.5} />}
-                  </td>
+                  </td> */}
                   <td>
                     {updateFecha}
                     {hora > 12 ? " p.m" : " a.m"}
                   </td>
                   <td>{estudio.asunto}</td>
+                  <td>{estudio.mensaje}</td>
                 </tr>
               );
             })}
@@ -47,7 +51,3 @@ export default function TablaEmailsEnviados({ estudiosEnviados }) {
     </>
   );
 }
-
-TablaEmailsEnviados.propTypes = {
-  estudiosEnviados: PropTypes.array.isRequired,
-};

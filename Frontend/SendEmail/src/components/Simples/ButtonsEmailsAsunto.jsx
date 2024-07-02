@@ -7,7 +7,7 @@ export default function ButtonsEmailsAsunto({
   handlerEstudiosNewPage,
 }) {
   return (
-    <div className="buttons-emailsAsuntos_conteiner">
+    <section className="buttons-emailsAsuntos_conteiner">
       <ButtonEmailAsunto
         handler={handlerEstudiosNewPage}
         text="Estudios - página nueva"
@@ -17,7 +17,7 @@ export default function ButtonsEmailsAsunto({
         text="Estudios - refaccionar página"
       />
       <ButtonEmailAsunto handler={handlerEstudiosAll} text="Estudios - todos" />
-    </div>
+    </section>
   );
 }
 
