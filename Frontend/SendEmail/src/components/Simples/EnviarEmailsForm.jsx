@@ -3,9 +3,12 @@
 import Loader01 from "../Icons/Loader01";
 import SendMessage from "../Icons/SendMessage";
 import useEnviarEmailsForm from "../../hooks/useEnviarEmailsForm";
+import { useContext } from "react";
+import { StudiosContext } from "../../context/StudiosContext";
 
 export default function EnviarEmailsForm() {
   const { enviarEmails, isLoading } = useEnviarEmailsForm();
+  const { estudiosNoEnviados } = useContext(StudiosContext);
 
   return (
     <section className="enviar-email">
@@ -29,17 +32,19 @@ export default function EnviarEmailsForm() {
           </select>
         </div>
 
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? (
-            <div className="loader-01">
-              <Loader01 />
-            </div>
-          ) : (
-            <>
-              Enviar Emails <SendMessage />
-            </>
-          )}
-        </button>
+        {estudiosNoEnviados.length > 0 && (
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <div className="loader-01">
+                <Loader01 />
+              </div>
+            ) : (
+              <>
+                Enviar Emails <SendMessage />
+              </>
+            )}
+          </button>
+        )}
       </form>
     </section>
   );

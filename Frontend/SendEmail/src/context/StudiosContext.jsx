@@ -6,6 +6,7 @@ export const StudiosContext = createContext();
 export function StudiosProvider({ children }) {
   const [estudiosEnviados, setEstudiosEnviados] = useState([]);
   const [estudiosNoEnviados, setEstudiosNoEnviados] = useState([]);
+  const [estudiosContestados, setEstudiosContestados] = useState([]);
 
   const [totalEstudios, setTotalEstudios] = useState([]);
   const URL_BACKEND = "http://localhost:1234";
@@ -20,6 +21,7 @@ export function StudiosProvider({ children }) {
       setTotalEstudios(estudios);
       setEstudiosEnviados(estudios.filter((estudio) => estudio.enviado));
       setEstudiosNoEnviados(estudios.filter((estudio) => !estudio.enviado));
+      setEstudiosContestados(estudios.filter((estudio) => estudio.contestado));
     } catch (error) {
       if (error.status == null) return;
       console.error("Error fetching estudios juridicos:", error);
@@ -35,6 +37,7 @@ export function StudiosProvider({ children }) {
       value={{
         estudiosEnviados,
         estudiosNoEnviados,
+        estudiosContestados,
 
         totalEstudios,
         fetchEstudios,

@@ -8,18 +8,24 @@ export default function TableEmailsAsunto({ estudiosAsunto }) {
       {estudiosPendientes === 0 ? (
         <p className="no-estudios-pendientes">No hay estudios pendientes</p>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Estudio Jurídico</th>
-              <th>Ubicación</th>
-              <th>Teléfono</th>
-              <th>Email</th>
-              <th>Estado</th>
-              <th>Asunto</th>
-            </tr>
-          </thead>
-          <tbody>
+        <section className="table-pendientes">
+          <header>
+            <span className="pendiente-nombre">Estudio Juridico</span>
+            <span className="pendiente-ubicacion pendiente-header-item">
+              Ubicación
+            </span>
+            <span className="pendiente-email pendiente-header-item">Email</span>
+            <span className="pendiente-telefono pendiente-header-item">
+              Teléfono
+            </span>
+            <span className="pendiente-asunto pendiente-header-item">
+              Asunto
+            </span>
+            <span className="pendiente-estado pendiente-header-item">
+              Estado
+            </span>
+          </header>
+          <ul className="table-pendientes_container">
             {estudiosAsunto?.map((estudio) => {
               const asunto = () => {
                 if (estudio.asunto == "newPage") {
@@ -30,18 +36,22 @@ export default function TableEmailsAsunto({ estudiosAsunto }) {
                 }
               };
               return (
-                <tr key={estudio.id}>
-                  <td>{estudio.nombre}</td>
-                  <td>{estudio.ubicacion}</td>
-                  <td>{estudio.telefono}</td>
-                  <td>{estudio.email}</td>
-                  <td>{estudio.enviado === 0 && <Pending />}</td>
-                  <td>{asunto()}</td>
-                </tr>
+                <li key={estudio.id} className="data-studio">
+                  <span className="pendiente-nombre">{estudio.nombre}</span>
+                  <span className="pendiente-ubicacion">
+                    {estudio.ubicacion}
+                  </span>
+                  <span className="pendiente-email">{estudio.email}</span>
+                  <span className="pendiente-telefono">{estudio.telefono}</span>
+                  <span className="pendiente-asunto">{asunto()}</span>
+                  <span className="pendiente-estado ">
+                    {estudio.enviado === 0 && <Pending />}
+                  </span>
+                </li>
               );
             })}
-          </tbody>
-        </table>
+          </ul>
+        </section>
       )}
     </>
   );

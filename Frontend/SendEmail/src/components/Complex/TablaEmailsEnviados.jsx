@@ -1,6 +1,7 @@
 // import Check from "../Icons/Check";
 import { useContext } from "react";
 import { StudiosContext } from "../../context/StudiosContext";
+import CardEnviados from "../Simples/CardEnviados";
 
 export default function TablaEmailsEnviados() {
   const { estudiosEnviados } = useContext(StudiosContext);
@@ -11,42 +12,38 @@ export default function TablaEmailsEnviados() {
       {estudiosPendientes === 0 ? (
         <p>No hay Emails enviados</p>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Estudio Jurídico</th>
-              {/* <th>Estado</th> */}
-              <th>Fecha de Envío</th>
-              <th>Asunto</th>
-              <th>Mensaje</th>
-            </tr>
-          </thead>
-          <tbody>
-            {estudiosEnviados?.map((estudio) => {
+        <section className="table-enviados">
+          <header>
+            <span>Estudio Juridico</span>
+            <span>Asunto</span>
+            <span>Fecha Envio</span>
+            <span>estado</span>
+          </header>
+          <ul className="table-enviados_container">
+            {estudiosEnviados?.map((estudio, index) => {
               const fechaEnvio = new Date(estudio.fecha_envio);
               const updateFecha = fechaEnvio
                 .toISOString()
                 .slice(0, 16)
                 .replace("T", " ");
               const hora = parseInt(updateFecha.slice(11, 13));
-              console.log(estudio);
-              return (
-                <tr key={estudio.id}>
-                  <td>{estudio.nombre}</td>
-                  {/* <td>
-                    {estudio.enviado === 1 && <Check strokeWidth={2.5} />}
-                  </td> */}
-                  <td>
-                    {updateFecha}
-                    {hora > 12 ? " p.m" : " a.m"}
-                  </td>
-                  <td>{estudio.asunto}</td>
-                  <td>{estudio.mensaje}</td>
-                </tr>
-              );
+
+              const estado = estudio.contestado == 0 && "sin respuesta";
+              if (estudio.contestado == 0) {
+                return (
+                  <CardEnviados
+                    estado={estado}
+                    hora={hora}
+                    updateFecha={updateFecha}
+                    estudio={estudio}
+                    index={index}
+                    key={index}
+                  />
+                );
+              }
             })}
-          </tbody>
-        </table>
+          </ul>
+        </section>
       )}
     </>
   );

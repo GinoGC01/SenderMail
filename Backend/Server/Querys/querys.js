@@ -1,14 +1,15 @@
 export const SELLECT_ALL = `
-SELECT e.*, ee.enviado, ee.fecha_envio, ee.mensaje
+SELECT e.*, ee.enviado, ee.fecha_envio, ee.mensaje, ec.contestado, ec.valorado
 FROM estudios_juridicos e
-LEFT JOIN emails_enviados ee ON e.id = ee.estudio_juridico_id;
+LEFT JOIN emails_enviados ee ON e.id = ee.estudio_juridico_id
+INNER JOIN emails_contestados ec on e.id = ec.estudio_juridico_id;
 `
 export const EMAILS_NO_ENVIADOS = `SELECT estudios_juridicos.id, estudios_juridicos.email
 FROM estudios_juridicos
 JOIN emails_enviados ON estudios_juridicos.id = emails_enviados.estudio_juridico_id
 WHERE emails_enviados.enviado = false;`
 
-export const EMAILS_ASUNTO = `SELECT estudios_juridicos.id, estudios_juridicos.email,emails_enviados.mensaje,
+export const EMAILS_ASUNTO = `SELECT estudios_juridicos.id, estudios_juridicos.email,emails_enviados.mensaje
 FROM estudios_juridicos
 JOIN emails_enviados ON estudios_juridicos.id = emails_enviados.estudio_juridico_id
 WHERE emails_enviados.enviado = false
