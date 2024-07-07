@@ -6,19 +6,28 @@ import Graficos from "./Sections/Graficos.jsx";
 import useOpenComponent from "../../hooks/useOpenComponent.jsx";
 import Footer from "../Simples/Footer.jsx";
 import EstudiosJuridicosEnviados from "./Sections/EstudiosJuridicosEnviados.jsx";
-import ButtonSendEmail from "../Simples/ButtonSendEmail.jsx";
+// import ButtonSendEmail from "../Simples/ButtonSendEmail.jsx";
 import UploadStudio from "../Icons/UploadStudio.jsx";
 import PersonalizeMessage from "../Icons/PersonalizeMessage.jsx";
 import Funcionalidades from "../Icons/Funcionalidades.jsx";
 import EstudiosJuridicosAsunto from "./Sections/EstudiosJuridicosAsunto.jsx";
 import ButtonSendEmailSubject from "../Simples/ButtonSendEmailSubject.jsx";
 import { PAGINA_NUEVA, REFACCIONAR_PAGINA } from "../../constants/asuntos.js";
+import { EMAILS_ASUNTO } from "../../constants/url.js";
+import { FORMATO_HTML } from "../../constants/format.js";
 
 export default function Dashboard() {
   const { fetchEstudios, estudiosNoEnviados } = useContext(StudiosContext);
 
   const cargasStudios = useOpenComponent();
   const enviarEmails = useOpenComponent();
+
+  const estudiosNewPage = estudiosNoEnviados.filter(
+    (estudio) => estudio.asunto == "newPage"
+  );
+  const estudiosImprovePage = estudiosNoEnviados.filter(
+    (estudio) => estudio.asunto == "ImprovePage"
+  );
 
   // fetch de los estudios juridicos
   useEffect(() => {
@@ -54,15 +63,24 @@ export default function Dashboard() {
                 : "button-send-emails-DEFAULT-disabled"
             }
           >
-            <ButtonSendEmail />
-            <ButtonSendEmailSubject
-              asuntoContent={PAGINA_NUEVA}
-              text="Página nueva"
-            />
-            <ButtonSendEmailSubject
-              asuntoContent={REFACCIONAR_PAGINA}
-              text="Refactorizar Página"
-            />
+            <span>Enviar segun asunto: </span>
+            {/* <ButtonSendEmail /> envia emails a todos los correos registrados*/}
+            {estudiosNewPage.length > 0 && (
+              <ButtonSendEmailSubject
+                asuntoContent={PAGINA_NUEVA}
+                text="Página nueva"
+                typemessage={FORMATO_HTML}
+                url={EMAILS_ASUNTO}
+              />
+            )}
+            {estudiosImprovePage.length > 0 && (
+              <ButtonSendEmailSubject
+                asuntoContent={REFACCIONAR_PAGINA}
+                text="Refactorizar Página"
+                typemessage={FORMATO_HTML}
+                url={EMAILS_ASUNTO}
+              />
+            )}
           </li>
         </ul>
       </section>

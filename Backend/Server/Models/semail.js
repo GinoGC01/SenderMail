@@ -2,12 +2,15 @@
 import mysql from 'mysql2'
 // Importa las consultas SQL definidas en un archivo externo
 import {
+  ACTUALIZAR_EMAIL_CONSTESTADO,
   ACTUALIZAR_EMAIL_ENVIADO,
+  CARGAR_EMAILS_CONTESTADOS,
   CARGAR_EMAILS_ENVIADOS,
   CARGAR_ESTUDIO_JURIDICO,
   EMAILS_ASUNTO,
   EMAILS_NO_ENVIADOS,
   SELLECT_ALL,
+  SELLECT_ALL_NO_CONTESTADOS,
 } from '../Querys/querys.js'
 
 // Configuración de la conexión a la base de datos MySQL
@@ -125,6 +128,41 @@ export class SEModel {
         // Resuelve la promesa con los resultados obtenidos de la consulta
         resolve(results)
       })
+    })
+  }
+
+  // Método estático para insertar un registro de correo electrónico contestado en la base de datos
+  static postEmailsContestados(id, contestado = false, valorado = 1) {
+    const query = CARGAR_EMAILS_CONTESTADOS // Query definida para cargar correos electrónicos contestados
+    return new Promise((resolve, reject) => {
+      // Ejecuta la consulta SQL mediante la conexión a la base de datos
+      connection.query(query, [id, contestado, valorado], (error, results) => {
+        if (error) {
+          // Rechaza la promesa en caso de error y devuelve el error
+          return reject(error)
+        }
+        // Resuelve la promesa con los resultados obtenidos de la consulta
+        resolve(results)
+      })
+    })
+  }
+
+  //metodo estatico para actualizar el estado de un email enviado a contestado y su valoracion
+  static updateAnsweredEmail(valorado, estudioJuridicoId) {
+    const query = ACTUALIZAR_EMAIL_CONSTESTADO
+    return new Promise((resolve, reject) => {
+      connection.query(
+        query,
+        [true, valorado, estudioJuridicoId],
+        (error, results) => {
+          if (error) {
+            // Rechaza la promesa en caso de error y devuelve el error
+            return reject(error)
+          }
+          // Resuelve la promesa con los resultados obtenidos de la consulta
+          resolve(results)
+        }
+      )
     })
   }
 }

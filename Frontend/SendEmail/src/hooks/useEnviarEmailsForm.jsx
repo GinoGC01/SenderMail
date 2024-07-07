@@ -1,7 +1,8 @@
 import { useState, useContext } from "react";
 import { StudiosContext } from "../context/StudiosContext";
+import { EMAILS_ASUNTO } from "../constants/url";
 
-export default function useEnviarEmailsForm() {
+export default function useEnviarEmailsForm(typemessageContent) {
   // Formulario para modificar el mensaje y asunto
   const [isLoading, setIsLoading] = useState(false);
   const { fetchEstudios } = useContext(StudiosContext);
@@ -14,17 +15,16 @@ export default function useEnviarEmailsForm() {
     const formData = new FormData(form);
     const fields = Object.fromEntries(formData);
 
+    const dataBody = { ...fields, typemessage: typemessageContent };
+
     try {
-      const response = await fetch(
-        "http://localhost:1234/estudios-juridicos//enviar-emails-subject",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(fields),
-        }
-      );
+      const response = await fetch(EMAILS_ASUNTO, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataBody),
+      });
 
       if (!response.ok) {
         throw new Error("Error al obtener los estudios juridicos");

@@ -80,8 +80,9 @@ export class SEController {
   // Método estático para enviar correos electrónicos a los destinatarios pendientes segun su asunto
   static async enviarEmailFromSubject(req, res) {
     try {
-      const { subject, message, asunto } = req.body
+      const { subject, message, asunto, typemessage } = req.body
       const results = await SEModel.pendingSubjectEmails(asunto) // Corregir typo
+      console.log(typemessage)
 
       if (results.length > 0) {
         try {
@@ -89,10 +90,17 @@ export class SEController {
           const fechaEnvio = new Date()
           const fechaEnvioFormateada = fechaFormateada(fechaEnvio)
           for (const row of results) {
+            console.log(row)
             // si ya se envio, lo salta y no cambia el mensaje. Sino, muta el mensaje.
             if (row.mensaje != '') return
             //envía
-            await sendEmail(row.email, subject, message, asunto)
+            await sendEmail(
+              row.email,
+              subject,
+              message,
+              typemessage,
+              row.nombre
+            )
             //actualiza en la tabla de enviados = fecha, mensaje, y estado de enviado
             await SEModel.updateSendingEmails(
               row.id,
@@ -155,6 +163,9 @@ export class SEController {
         // Inserta el registro de correo enviado en la base de datos
         await SEModel.postEmailsEnviados(id)
 
+        // Inserta el registro de correo contestado en la base de datos
+        await SEModel.postEmailsContestados(id)
+
         // Responde con éxito si los datos fueron insertados correctamente
         return res
           .status(200)
@@ -175,6 +186,26 @@ export class SEController {
       // Manejo de errores generales durante la solicitud
       console.error('Error al procesar la solicitud:', error)
       return res.status(500).json({ error: 'Error al procesar la solicitud' })
+    }
+  }
+
+  static async actualizarEstadoContestado(req, res) {
+    try {
+      const { valorado, id } = req.body
+      await SEModel.updateAnsweredEmail(valorado, id)
+
+      return res.status(200).json({
+        message: 'Estado del email enviado actualizado correctamente',
+        state: true,
+      })
+    } catch (error) {
+      console.error(
+        'Error al actualizar estado del mensaje contestado: ',
+        error
+      )
+      return res
+        .status(500)
+        .json({ error: 'Error al procesar la solicitud - Estado: contestado' })
     }
   }
 }

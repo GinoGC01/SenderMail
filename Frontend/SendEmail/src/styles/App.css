@@ -377,6 +377,7 @@
 .table-enviados header > span{
     display: block;
     width: 25%;
+    text-align: center;
 }
 
 .pendiente-nombre{
@@ -406,7 +407,7 @@
     text-align: center;
 }
 
-.pendiente-header-item,.pendiente-asunto, .pendiente-telefono{
+.pendiente-header-item,.pendiente-asunto, .pendiente-telefono, .pendiente-email, .pendiente-ubicacion{
     text-align: center;
 }
 
@@ -447,6 +448,7 @@
     border-radius: 10px;
     gap: 1.5em;
     flex-direction: column;
+    cursor: auto;
 }
 
 .data-studio-details button{
@@ -456,6 +458,7 @@
     padding: 10px 30px;
     width: 10em;
     margin: auto;
+    cursor: pointer;
 }
 
 
@@ -467,6 +470,10 @@
     align-items: center;
     padding: 5px 10px ;
     cursor: pointer;
+}
+
+.data-studio-important-open{
+    cursor: auto;
 }
 
 .data-studio-important span{
@@ -481,9 +488,39 @@
 .table-enviados_container li span{
     width: 25%;
     font-size: .8em;
+    text-align: center;
 }
 
+.valorado{
+    background: rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    gap: .5em;
+}
 
+.valorado-input{
+    display: flex;
+    gap: 1em;
+}
+
+.valorado-input select{
+
+  appearance: none;
+
+  border: 1px solid #ffffff0a;
+  margin: 0;
+  border-radius: 5px;
+  width: 3em;
+  height: 2em;
+
+  text-align: center;
+  
+}
 
 
 /* cargar estudios */

@@ -5,9 +5,10 @@ import SendMessage from "../Icons/SendMessage";
 import useEnviarEmailsForm from "../../hooks/useEnviarEmailsForm";
 import { useContext } from "react";
 import { StudiosContext } from "../../context/StudiosContext";
+import { FORMATO_TEXTO } from "../../constants/format";
 
 export default function EnviarEmailsForm() {
-  const { enviarEmails, isLoading } = useEnviarEmailsForm();
+  const { enviarEmails, isLoading } = useEnviarEmailsForm(FORMATO_TEXTO);
   const { estudiosNoEnviados } = useContext(StudiosContext);
 
   return (
