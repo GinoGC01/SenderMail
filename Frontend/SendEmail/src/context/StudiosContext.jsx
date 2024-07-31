@@ -9,11 +9,11 @@ export function StudiosProvider({ children }) {
   const [estudiosContestados, setEstudiosContestados] = useState([]);
 
   const [totalEstudios, setTotalEstudios] = useState([]);
-  const URL_BACKEND = "http://localhost:1234";
+  const URL_BACKEND = "http://localhost:1234/estudios-juridicos";
 
   const fetchEstudios = async () => {
     try {
-      const response = await fetch(`${URL_BACKEND}/estudios-juridicos`);
+      const response = await fetch(URL_BACKEND);
       if (!response.ok) {
         throw new Error("Error al obtener los estudios juridicos");
       }

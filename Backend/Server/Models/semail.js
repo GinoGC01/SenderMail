@@ -7,10 +7,12 @@ import {
   CARGAR_EMAILS_CONTESTADOS,
   CARGAR_EMAILS_ENVIADOS,
   CARGAR_ESTUDIO_JURIDICO,
+  ELIMINAR_ESTUDIO_CONTESTADO,
+  ELIMINAR_ESTUDIO_ENVIADO,
+  ELIMINAR_ESTUDIO,
   EMAILS_ASUNTO,
   EMAILS_NO_ENVIADOS,
   SELLECT_ALL,
-  SELLECT_ALL_NO_CONTESTADOS,
 } from '../Querys/querys.js'
 
 // Configuración de la conexión a la base de datos MySQL
@@ -163,6 +165,44 @@ export class SEModel {
           resolve(results)
         }
       )
+    })
+  }
+
+  static deleteStudio(id) {
+    const query_pending = ELIMINAR_ESTUDIO
+    return new Promise((resolve, reject) => {
+      connection.query(query_pending, [id], (error, result) => {
+        if (error) {
+          console.log('error deleteStudioPending')
+          return reject(error)
+        }
+        resolve(result)
+      })
+    })
+  }
+  static deleteStudioSending(id) {
+    const query_sending = ELIMINAR_ESTUDIO_ENVIADO
+    return new Promise((resolve, reject) => {
+      connection.query(query_sending, [id], (error, result) => {
+        if (error) {
+          console.log('error deleteStudioPending')
+          return reject(error)
+        }
+        resolve(result)
+      })
+    })
+  }
+
+  static deleteStudioAnswered(id) {
+    const query_answered = ELIMINAR_ESTUDIO_CONTESTADO
+    return new Promise((resolve, reject) => {
+      connection.query(query_answered, [id], (error, result) => {
+        if (error) {
+          console.log('error deleteStudioPending')
+          return reject(error)
+        }
+        resolve(result)
+      })
     })
   }
 }

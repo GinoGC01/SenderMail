@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 import { StudiosContext } from "../context/StudiosContext";
 
+//hock para enviar emails por tipo de asunto "botones"
+
 export default function useEnviarEmails({ url, typemessage, asuntoContent }) {
   const [isLoading, setIsLoading] = useState(false);
   const { fetchEstudios } = useContext(StudiosContext);
@@ -10,10 +12,9 @@ export default function useEnviarEmails({ url, typemessage, asuntoContent }) {
     setIsLoading(true); // Comienza la carga
 
     const body = {
-      subject: "TODO: EMAIL SUBJECT",
-      message: "Mensaje estructurado con HTML - CSS",
-      asunto: asuntoContent,
-      typemessage,
+      message: "Mensaje estructurado con HTML - CSS", //mensaje en el sistema
+      asunto: asuntoContent, // asunto en el sistema
+      typemessage, // tipo de estructura del mensaje
     };
 
     try {
@@ -25,7 +26,6 @@ export default function useEnviarEmails({ url, typemessage, asuntoContent }) {
         body: JSON.stringify(body),
       });
 
-      console.log(response);
       if (!response.ok) {
         throw new Error("Error al obtener los estudios juridicos");
       }

@@ -82,7 +82,6 @@ export class SEController {
     try {
       const { subject, message, asunto, typemessage } = req.body
       const results = await SEModel.pendingSubjectEmails(asunto) // Corregir typo
-      console.log(typemessage)
 
       if (results.length > 0) {
         try {
@@ -90,17 +89,21 @@ export class SEController {
           const fechaEnvio = new Date()
           const fechaEnvioFormateada = fechaFormateada(fechaEnvio)
           for (const row of results) {
-            console.log(row)
             // si ya se envio, lo salta y no cambia el mensaje. Sino, muta el mensaje.
             if (row.mensaje != '') return
             //envía
-            await sendEmail(
+            const enviado = await sendEmail(
               row.email,
               subject,
               message,
               typemessage,
-              row.nombre
+              row.nombre,
+              asunto
             )
+
+            if (!enviado) {
+              throw new Error('No se enviaron los correos electrónicos')
+            }
             //actualiza en la tabla de enviados = fecha, mensaje, y estado de enviado
             await SEModel.updateSendingEmails(
               row.id,
@@ -203,6 +206,29 @@ export class SEController {
         'Error al actualizar estado del mensaje contestado: ',
         error
       )
+      return res
+        .status(500)
+        .json({ error: 'Error al procesar la solicitud - Estado: contestado' })
+    }
+  }
+
+  static async eliminarEstudio(req, res) {
+    try {
+      const { id } = req.body
+      const deleteAnswered = await SEModel.deleteStudioAnswered(id)
+      const deleteSending = await SEModel.deleteStudioSending(id)
+
+      if (deleteAnswered && deleteSending) {
+        await SEModel.deleteStudio(id)
+      } else {
+        console.log('Estudio no eliminado', deleteAnswered, deleteSending)
+      }
+      return res.status(200).json({
+        message: 'Estudio eliminado correctamente',
+        state: true,
+      })
+    } catch (error) {
+      console.log(error)
       return res
         .status(500)
         .json({ error: 'Error al procesar la solicitud - Estado: contestado' })

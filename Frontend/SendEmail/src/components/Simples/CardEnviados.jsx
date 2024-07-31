@@ -3,6 +3,8 @@ import { useContext, useState } from "react";
 import useOpenComponent from "../../hooks/useOpenComponent";
 import { StudiosContext } from "../../context/StudiosContext";
 import Loader01 from "../Icons/Loader01";
+import Delete from "../Icons/Delete.jsx";
+import useDeleteEstudio from "../../hooks/useDeleteEstudio";
 
 export default function CardEnviados({
   estudio,
@@ -20,6 +22,7 @@ export default function CardEnviados({
   };
 
   const { open, handleOpen } = useOpenComponent();
+  const { eliminarEstudio } = useDeleteEstudio();
 
   const handleSubmitAnswered = async (e) => {
     e.preventDefault();
@@ -80,6 +83,14 @@ export default function CardEnviados({
           <div className="data-studio-details__mensaje">
             Mensaje: {estudio.mensaje}
           </div>
+          <button
+            className="delete-enviado"
+            onClick={() => {
+              eliminarEstudio(estudio.id, estudio.nombre);
+            }}
+          >
+            <Delete />
+          </button>
           <button onClick={handlerContestado}>contestado</button>
           {constestado && (
             <form className="valorado" onSubmit={handleSubmitAnswered}>

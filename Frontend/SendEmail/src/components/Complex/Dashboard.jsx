@@ -6,13 +6,17 @@ import Graficos from "./Sections/Graficos.jsx";
 import useOpenComponent from "../../hooks/useOpenComponent.jsx";
 import Footer from "../Simples/Footer.jsx";
 import EstudiosJuridicosEnviados from "./Sections/EstudiosJuridicosEnviados.jsx";
-// import ButtonSendEmail from "../Simples/ButtonSendEmail.jsx";
 import UploadStudio from "../Icons/UploadStudio.jsx";
 import PersonalizeMessage from "../Icons/PersonalizeMessage.jsx";
 import Funcionalidades from "../Icons/Funcionalidades.jsx";
 import EstudiosJuridicosAsunto from "./Sections/EstudiosJuridicosAsunto.jsx";
 import ButtonSendEmailSubject from "../Simples/ButtonSendEmailSubject.jsx";
-import { PAGINA_NUEVA, REFACCIONAR_PAGINA } from "../../constants/asuntos.js";
+import {
+  ASUNTO_PAGINA_NUEVA,
+  ASUNTO_REFACCIONAR_PAGINA,
+  PAGINA_NUEVA,
+  REFACCIONAR_PAGINA,
+} from "../../constants/asuntos.js";
 import { EMAILS_ASUNTO } from "../../constants/url.js";
 import { FORMATO_HTML } from "../../constants/format.js";
 
@@ -71,6 +75,7 @@ export default function Dashboard() {
                 text="Página nueva"
                 typemessage={FORMATO_HTML}
                 url={EMAILS_ASUNTO}
+                subject={ASUNTO_PAGINA_NUEVA}
               />
             )}
             {estudiosImprovePage.length > 0 && (
@@ -79,6 +84,7 @@ export default function Dashboard() {
                 text="Refactorizar Página"
                 typemessage={FORMATO_HTML}
                 url={EMAILS_ASUNTO}
+                subject={ASUNTO_REFACCIONAR_PAGINA}
               />
             )}
           </li>

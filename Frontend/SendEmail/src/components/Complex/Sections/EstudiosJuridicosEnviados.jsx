@@ -11,12 +11,15 @@ export default function EstudiosJuridicosEnviados() {
   return (
     <aside className="emails-enviados">
       <header>
-        <h3>Emails Enviados ({cantidadEstudiosEnviados})</h3>
+        <h3>
+          Emails Enviados - SIN CONTESTAR: ({" "}
+          {cantidadEstudiosEnviados - cantidadEstudiosContestados} )
+        </h3>
       </header>
       <TablaEmailsEnviados estudiosEnviados={estudiosEnviados} />
       <section>
         <header>
-          <h3> Emails Contestados:({cantidadEstudiosContestados}) </h3>
+          <h3> Emails CONTESTADOS: ( {cantidadEstudiosContestados} ) </h3>
         </header>
         <TablaEmailsContestados />
       </section>

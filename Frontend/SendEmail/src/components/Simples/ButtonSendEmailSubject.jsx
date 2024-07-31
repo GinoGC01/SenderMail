@@ -37,4 +37,5 @@ ButtonSendEmailSubject.propTypes = {
   text: PropTypes.string.isRequired,
   typemessage: PropTypes.string,
   url: PropTypes.string.isRequired,
+  subject: PropTypes.string.isRequired,
 };

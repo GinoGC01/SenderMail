@@ -15,3 +15,5 @@ SEmailouter.post(
   '/actualizar-estado-contestado',
   SEController.actualizarEstadoContestado
 )
+
+SEmailouter.delete('/eliminar-estudio', SEController.eliminarEstudio)

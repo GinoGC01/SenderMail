@@ -28,3 +28,7 @@ export const CARGAR_ESTUDIO_JURIDICO = `INSERT INTO estudios_juridicos (id, nomb
 
 export const CARGAR_EMAILS_ENVIADOS = `INSERT INTO emails_enviados (estudio_juridico_id, enviado, mensaje) VALUES (?, ?, ?)`
 export const CARGAR_EMAILS_CONTESTADOS = `INSERT INTO emails_contestados (estudio_juridico_id, contestado, valorado) VALUES (?, ?, ?)`
+
+export const ELIMINAR_ESTUDIO = `delete from estudios_juridicos where id = ?`
+export const ELIMINAR_ESTUDIO_ENVIADO = `delete from emails_enviados where estudio_juridico_id = ?`
+export const ELIMINAR_ESTUDIO_CONTESTADO = `delete from emails_contestados where estudio_juridico_id = ?`

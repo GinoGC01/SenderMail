@@ -1,8 +1,12 @@
 import PropTypes from "prop-types";
 import Pending from "../Icons/Pending";
+import useDeleteEstudio from "../../hooks/useDeleteEstudio";
+import Delete from "../Icons/Delete";
 
 export default function TableEmailsAsunto({ estudiosAsunto }) {
   const estudiosPendientes = estudiosAsunto.length;
+  const { eliminarEstudio, error } = useDeleteEstudio();
+
   return (
     <>
       {estudiosPendientes === 0 ? (
@@ -23,6 +27,9 @@ export default function TableEmailsAsunto({ estudiosAsunto }) {
             </span>
             <span className="pendiente-estado pendiente-header-item">
               Estado
+            </span>
+            <span className="pendiente-estado pendiente-header-item">
+              Eliminar
             </span>
           </header>
           <ul className="table-pendientes_container">
@@ -47,10 +54,19 @@ export default function TableEmailsAsunto({ estudiosAsunto }) {
                   <span className="pendiente-estado ">
                     {estudio.enviado === 0 && <Pending />}
                   </span>
+                  <button
+                    className="pendiente-delte"
+                    onClick={() => {
+                      eliminarEstudio(estudio.id, estudio.nombre);
+                    }}
+                  >
+                    <Delete />
+                  </button>
                 </li>
               );
             })}
           </ul>
+          <span>{error}</span>
         </section>
       )}
     </>
