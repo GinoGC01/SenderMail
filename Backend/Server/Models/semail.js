@@ -20,7 +20,7 @@ const connection = mysql.createConnection({
   host: 'localhost', // Dirección del servidor de la base de datos
   port: 3306, // Puerto de conexión de la base de datos MySQL
   user: 'root', // Usuario de la base de datos
-  password: '1413', // Contraseña del usuario
+  password: '1234567', // Contraseña del usuario
   database: 'estudios_db', // Nombre de la base de datos a utilizar
 })
 
@@ -34,7 +34,7 @@ export class SEModel {
       connection.query(query, (error, results) => {
         if (error) {
           // Rechaza la promesa en caso de error y muestra un mensaje descriptivo
-          reject('Error al ejecutar la consulta SQL: /estudios-juridicos')
+          reject(error)
         } else {
           // Resuelve la promesa con los resultados obtenidos de la consulta
           resolve(results)
@@ -106,6 +106,9 @@ export class SEModel {
             // Manejo específico para errores de duplicación de registros
             if (error.code === 'ER_DUP_ENTRY') {
               return reject({ codigo: 'ER_DUP_ENTRY', status: false })
+            }
+            if (error.code === 'WARN_DATA_TRUNCATED') {
+              return reject({ codigo: 'WARN_DATA_TRUNCATED', status: false })
             }
             // Rechaza la promesa con un mensaje de error general
             return reject(`Modelo: ${error.code}`)

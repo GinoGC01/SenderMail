@@ -181,6 +181,13 @@ export class SEController {
             .status(400)
             .json({ error: 'Datos Existentes', codigo: 'dato-existente' })
         }
+        if (error.codigo === 'WARN_DATA_TRUNCATED') {
+          return res.status(400).json({
+            error: 'Caracteres no soportados',
+            codigo: 'caracteres-no-soportados',
+          })
+        }
+        console.log(error)
         return res
           .status(500)
           .json({ error: 'Error al insertar datos a la base de datos' })
