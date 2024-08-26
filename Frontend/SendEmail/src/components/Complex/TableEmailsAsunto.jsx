@@ -2,17 +2,32 @@ import PropTypes from "prop-types";
 import Pending from "../Icons/Pending";
 import useDeleteEstudio from "../../hooks/useDeleteEstudio";
 import Delete from "../Icons/Delete";
+import SearchComponent from "../Simples/SearchComponent";
+import useFilters from "../../hooks/useFilters";
+import { useEffect, useState } from "react";
 
 export default function TableEmailsAsunto({ estudiosAsunto }) {
-  const estudiosPendientes = estudiosAsunto.length;
+  const [estudiosPendientes, setEstudiosPendientes] = useState([]);
+  const estudiosPendientesLen = estudiosAsunto.length;
   const { eliminarEstudio, error } = useDeleteEstudio();
+  const { handleOnChangeName, filters, contentFiltered } = useFilters({
+    content: estudiosAsunto,
+  });
 
+  useEffect(() => {
+    setEstudiosPendientes(contentFiltered);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters, estudiosAsunto]);
   return (
     <>
-      {estudiosPendientes === 0 ? (
+      {estudiosPendientesLen === 0 ? (
         <p className="no-estudios-pendientes">No hay estudios pendientes</p>
       ) : (
         <section className="table-pendientes">
+          <SearchComponent
+            handleChange={handleOnChangeName}
+            sectionStudio={"Pendientes"}
+          />
           <header>
             <span className="pendiente-nombre">Estudio Juridico</span>
             <span className="pendiente-ubicacion pendiente-header-item">
@@ -33,7 +48,7 @@ export default function TableEmailsAsunto({ estudiosAsunto }) {
             </span>
           </header>
           <ul className="table-pendientes_container">
-            {estudiosAsunto?.map((estudio) => {
+            {estudiosPendientes?.map((estudio) => {
               const asunto = () => {
                 if (estudio.asunto == "newPage") {
                   return "Crear página";

@@ -13,6 +13,10 @@ export default function FormStudios() {
           {error === "dato-existente" &&
             "Se ingresó un dato ya existente. Por favor revise los campos antes de seguir."}
         </p>
+        <p>
+          {error === "caracteres-no-soportados" &&
+            "Se ingresaron caracteres no soportados. Revisar los campos."}
+        </p>
       </header>
       <form onSubmit={handleSubmit} className="cargar-estudio-form">
         <div>

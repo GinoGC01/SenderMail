@@ -1,10 +1,21 @@
 // import Check from "../Icons/Check";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StudiosContext } from "../../context/StudiosContext";
 import CardEnviados from "../Simples/CardEnviados";
+import useFilters from "../../hooks/useFilters.jsx";
+import SearchComponent from "../Simples/SearchComponent.jsx";
 
 export default function TablaEmailsEnviados() {
   const { estudiosEnviados } = useContext(StudiosContext);
+  const { contentFiltered, handleOnChangeName, filters } = useFilters({
+    content: estudiosEnviados,
+  });
+  const [estudiosFiltrados, setEstudiosFiltrados] = useState([]);
+
+  useEffect(() => {
+    setEstudiosFiltrados(contentFiltered());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters, estudiosEnviados]);
 
   const estudiosPendientes = estudiosEnviados.length;
   return (
@@ -13,6 +24,10 @@ export default function TablaEmailsEnviados() {
         <p>No hay Emails enviados</p>
       ) : (
         <section className="table-enviados">
+          <SearchComponent
+            handleChange={handleOnChangeName}
+            sectionStudio={"Enviados"}
+          />
           <header>
             <span>Estudio Juridico</span>
             <span>Asunto</span>
@@ -20,7 +35,7 @@ export default function TablaEmailsEnviados() {
             <span>estado</span>
           </header>
           <ul className="table-enviados_container">
-            {estudiosEnviados?.map((estudio, index) => {
+            {estudiosFiltrados?.map((estudio, index) => {
               const fechaEnvio = new Date(estudio.fecha_envio);
               const updateFecha = fechaEnvio
                 .toISOString()
