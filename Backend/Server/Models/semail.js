@@ -1,5 +1,7 @@
 // Importa la librería mysql2 para interactuar con la base de datos MySQL
 import mysql from 'mysql2'
+import dotenv from 'dotenv'
+
 // Importa las consultas SQL definidas en un archivo externo
 import {
   ACTUALIZAR_EMAIL_CONSTESTADO,
@@ -15,13 +17,22 @@ import {
   SELLECT_ALL,
 } from '../Querys/querys.js'
 
+dotenv.config()
+
+dotenv.config()
+const host = process.env.HOST_DB
+const port = process.env.PORT_DB
+const user = process.env.USER_DB
+const password = process.env.PASS_DB
+const database = process.env.NAME_DB
+
 // Configuración de la conexión a la base de datos MySQL
 const connection = mysql.createConnection({
-  host: 'localhost', // Dirección del servidor de la base de datos
-  port: 3306, // Puerto de conexión de la base de datos MySQL
-  user: 'root', // Usuario de la base de datos
-  password: '1234567', // Contraseña del usuario
-  database: 'estudios_db', // Nombre de la base de datos a utilizar
+  host, // Dirección del servidor de la base de datos
+  port, // Puerto de conexión de la base de datos MySQL
+  user, // Usuario de la base de datos
+  password, // Contraseña del usuario
+  database, // Nombre de la base de datos a utilizar
 })
 
 // Clase SEModel que contiene métodos para interactuar con la base de datos
